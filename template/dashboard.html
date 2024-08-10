@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+    /* Add custom styles for the premium heading */
+    .dashboard-heading {
+        font-size: 30px;
+        font-weight: bold;
+        color: #285d96; /* Change to your desired color */
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-bottom: 2px solid #007BFF; /* Add an underline effect */
+        padding-bottom: 10px; /* Adjust the padding as needed */
+    }
+
+    /* Add shadow styles to cards */
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        border-radius: 5px;
+        margin-bottom: 20px; /* Add margin between cards */
+    }
+
+    /* Hover effect for cards */
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* Adjust background color for the page */
+    body {
+        background-color: #f8f9fa; /* Very light primary color */
+    }
+
+    /* Add spacing between sections */
+    .container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Add spacing between cards */
+    .card {
+        margin: 10px;
+    }
+
+    /* Set font family */
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    /* Header styling */
+    .navbar {
+        background-color: #333; /* Darker color for the header */
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: #fff; /* White text for links in the header */
+    }
+
+    /* Footer styling */
+    footer {
+        background-color: #333; /* Darker color for the footer */
+        color: #fff; /* White text color for the footer */
+    }
+
+    /* Button styling */
+    .btn {
+        background-color: #007BFF; /* Primary button color */
+        color: #fff; /* Text color for buttons */
+    }
+
+    .btn:hover {
+        background-color: #0056b3; /* Darker color on hover */
+    }
+</style>
+
+<h1 class="text-center mt-5 dashboard-heading">Welcome To The Dashboard</h1> <!-- Styled heading here -->
+
+<div class="container mt-5 mb-5"> <!-- Added margin-bottom here -->
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <div class="card text-center" style="background-color: rgba(255, 225, 196, 0.5);"> <!-- Adjusted RGB values and kept alpha value at 0.5 for a slightly lighter skin color -->
+                <div class="card-body">
+                    <h3 class="card-title">Add Invoice</h3>
+                    <img src="/static/images/invoice2.jpg" alt="Invoice Logo" class="card-img-top mb-3">
+                    <a href="{% url 'add-invoice' %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center" style="background-color: rgba(255, 216, 216, 0.5);"> <!-- Adjust alpha value (0.5) for transparency -->
+                <div class="card-body">
+                    <h3 class="card-title">Service Provider</h3>
+                    <img src="/static/images/Edit.webp" alt="Edit Logo" class="card-img-top mb-3">
+                    <a href="{% url 'service-provider' %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center" style="background-color: rgba(255, 255, 120, 0.5);"> <!-- Adjusted RGB values and kept alpha value at 0.5 for a slightly darker yellow color -->
+                <div class="card-body">
+                    <h3 class="card-title">Review Services</h3>
+                    <img src="/static/images/Review.webp" alt="Review Logo" class="card-img-top mb-3">
+                    <a href="{% url 'review-invoice' %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center" style="background-color: rgba(173, 216, 230, 0.6);"> <!-- Adjusted alpha value (0.6) to make it slightly lighter while keeping transparency -->
+                <div class="card-body">
+                    <h3 class="card-title">Report</h3>
+                    <img src="/static/images/REPORT.webp" alt="Report Logo" class="card-img-top mb-3">
+                    <a href="{% url 'report' %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container my-5">
+    <h2>Delete Client</h2>
+    <p>Are you sure you want to delete this client?</p>
+    <p>Company Name: {{ client.company_name }}</p>
+    <p>GST Number: {{ client.gst_number }}</p>
+    <p>Address: {{ client.address }}</p>
+    <!-- Add more client details here as needed -->
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'review-invoice' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

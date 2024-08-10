@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+.table-header {
+    background-color: #f0f0f0; /* Add your desired background color here */
+    padding: 10px;
+    text-align: center;
+}
+.grid-item{
+    margin-top: 50px;
+}
+.table{
+    margin-top: 50px;
+}
+</style>
+<div class="container my-5">
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+
+                <th class="table-header" colspan="2">Client Details</th>
+                
+            </tr>
+            <tr>
+                <th class="table-header">ID</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Company Name</th>
+                <td>{{ client.company_name }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">GST Number</th>
+                <td>{{ client.gst_number }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Country</th>
+                <td>{{ client.country }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">State</th>
+                <td>{{ client.state }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Address</th>
+                <td>{{ client.address }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Created At</th>
+                <td>{{ client.created_at }}</td>
+            </tr>
+            <!-- Add more client details here as needed -->
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th class="table-header" colspan="2">Service Details</th>
+
+            </tr>
+            {% for service in services %}
+            <tr>
+                <th class="table-header">Description n</th>
+                <td>{{ service.description }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Quantity</th>
+                <td>{{ service.quantity }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Amount</th>
+                <td>{{ service.amount }}</td>
+            </tr>
+            <tr>
+                <th class="table-header">Created At</th>
+                <td>{{ service.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="grid-item">
+        <div class="card shadow form-card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4 text-Dark">Service Provider </h2>
+
+                <table class="table table-bordered table-striped
+                    id="billReportTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Company Name</th>
+                            <th>Handle By</th>
+                            <th>Phone</th>
+                            <th>Client</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if companies %}
+                        {% for company in companies %}
+                        <tr>
+                            <td>{{company.id}}</td>
+                            <td>{{ company.company_name }}</td>
+                            <td>{{ company.handle_by }}</td>
+                            <td>{{ company.phone }}</td>
+                            <td>{{ company.client }}</td>
+                            <td>{{company.created_at}}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{% url 'edit_company' company.id %}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form method="post" action="{% url 'delete_company' company.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('{{ company.company_name }}')">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add JavaScript function for confirmation -->
+<script>
+    function confirmDelete(companyName) {
+        if (confirm(`Are you sure you want to delete ${companyName}?`)) {
+            // If the user confirms, submit the form
+            event.target.parentElement.submit();
+        }
+    }
+</script>
+{% endblock %}

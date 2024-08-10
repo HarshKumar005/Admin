@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+    /* Add custom scrollbar styling */
+    .card-body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .card-body::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .card-body::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .card-body::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    /* Add grid layout styles */
+   .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .grid-item {
+        padding: 15px;
+    }
+
+    /* Add styles for the form and report table */
+    .form-card {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    /* Add more styling as needed */
+</style>
+
+<div class="container my-5">
+    <div class="grid-container">
+         <div class="grid-item">
+            <div class="card shadow card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4 text-Dark">Add-Service-Provider</h2>
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-item">
+            <div class="card shadow form-card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4 text-Dark">Report</h2>
+                   
+                    <table class="table table-bordered table-striped
+                    id="billReportTable">
+                    <thead>
+                        <thead>
+                            <tr>
+                                <th>Company Name</th>
+                                <th>Handle By</th>
+                                <th>Phone</th>
+                                <th>Client</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                       <!-- ... other parts of your template ... -->
+<!-- ... other parts of your template ... -->
+
+<tbody>
+    {% if companies %}
+    {% for company in companies %}
+    <tr>
+        <td>{{ company.company_name }}</td>
+        <td>{{ company.handle_by }}</td>
+        <td>{{ company.phone }}</td>
+        <td>{{ company.client }}</td>
+        <td>
+            <div class="btn-group" role="group">
+                <a href="{% url 'edit_company' company.id %}" class="btn btn-sm btn-primary">Edit</a>
+                <!-- Add JavaScript confirmation dialog -->
+                <form method="post" action="{% url 'delete_company' company.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('{{ company.company_name }}')">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+</tbody>
+
+<!-- ... rest of your template ... -->
+
+                      </div>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add JavaScript function for confirmation -->
+<script>
+    function confirmDelete(companyName) {
+        if (confirm(`Are you sure you want to delete ${companyName}?`)) {
+            // If user confirms, submit the form
+            event.target.parentElement.submit();
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#billReportTable').DataTable({
+            scrollY: '300px', // Set the desired height for scrollable content
+            scrollCollapse: true,
+            paging: false
+        });
+    });
+</script>
+
+{% endblock %}
